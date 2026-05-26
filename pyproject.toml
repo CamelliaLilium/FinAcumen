@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "finacumen"
+version = "0.1.0"
+description = "FinAcumen: Financial QA agents with structured experience memory for multi-modal reasoning benchmarks"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "[Anonymous]"}]
+dependencies = [
+    "pydantic~=2.10.6",
+    "openai~=1.66.3",
+    "tenacity~=9.0.0",
+    "pyyaml~=6.0.2",
+    "loguru~=0.7.3",
+    "numpy>=1.24",
+    "datasets~=3.4.1",
+    "fastapi~=0.115.11",
+    "tiktoken~=0.9.0",
+    "html2text~=2024.2.26",
+    "gymnasium~=1.1.1",
+    "browsergym~=0.13.3",
+    "uvicorn~=0.34.0",
+    "unidiff~=0.7.5",
+    "browser-use~=0.1.40",
+    "googlesearch-python~=1.3.0",
+    "baidusearch~=1.0.3",
+    "duckduckgo_search~=7.5.3",
+    "aiofiles~=24.1.0",
+    "pydantic_core~=2.27.2",
+    "colorama~=0.4.6",
+    "playwright~=1.51.0",
+    "docker~=7.1.0",
+    "httpx>=0.27.0",
+    "tomli>=2.0.0",
+    "requests~=2.32.3",
+    "beautifulsoup4~=4.13.3",
+    "huggingface-hub~=0.29.2",
+    "setuptools>=61",
+    "python-dotenv>=1.0.0",
+    "scikit-learn>=1.3.0",
+    "dashscope>=1.20.0",
+]
+
+[project.scripts]
+finacumen-benchmark = "finacumen.ft.benchmark_dser_race:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.package-data]
+finacumen = ["skills/**/*.md"]

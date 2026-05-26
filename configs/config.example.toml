@@ -1,0 +1,190 @@
+# =============================================================================
+# FinAcumen Configuration
+# Copy this file to config.toml (or set FINACUMEN_CONFIG_PATH env var).
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Global LLM configuration (primary reasoning model)
+# ---------------------------------------------------------------------------
+# Models used in paper experiments:
+#   - Qwen3-VL-8B-Instruct (via DashScope)  — primary solver
+#   - Claude 3.7 Sonnet (via Anthropic)      — alternative solver
+#   - GLM-4.6V-Flash (via Zhipu AI)          — alternative solver
+#   - Claude Sonnet 4.6                       — alternative solver
+# The `api_type` key is optional; defaults to "openai" (OpenAI-compatible endpoint).
+# Set api_type = "aws" for Amazon Bedrock, "azure" for Azure OpenAI, "ollama" for local.
+# ---------------------------------------------------------------------------
+[llm]
+model = "qwen3-vl-8b-instruct"                 # Primary solver model from experiments
+base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+api_key = "YOUR_DASHSCOPE_API_KEY"
+max_tokens = 8192
+temperature = 0.0
+
+# Alternative: Anthropic Claude
+# [llm]
+# model = "claude-3-7-sonnet-20250219"
+# base_url = "https://api.anthropic.com/v1/"
+# api_key = "YOUR_ANTHROPIC_API_KEY"
+# max_tokens = 8192
+# temperature = 0.0
+
+# Alternative: Amazon Bedrock
+# [llm]
+# api_type = "aws"
+# model = "us.anthropic.claude-3-7-sonnet-20250219-v1:0"
+# base_url = "bedrock-runtime.us-west-2.amazonaws.com"
+# max_tokens = 8192
+# temperature = 1.0
+# api_key = "bear"
+
+# Alternative: Azure OpenAI
+# [llm]
+# api_type = "azure"
+# model = "YOUR_MODEL_NAME"
+# base_url = "{YOUR_AZURE_ENDPOINT}/openai/deployments/{AZURE_DEPLOYMENT_ID}"
+# api_key = "YOUR_AZURE_API_KEY"
+# max_tokens = 8096
+# temperature = 0.0
+# api_version = "2024-08-01-preview"
+
+# Alternative: Ollama (local)
+# [llm]
+# api_type = "ollama"
+# model = "llama3.2"
+# base_url = "http://localhost:11434/v1"
+# api_key = "ollama"
+# max_tokens = 4096
+# temperature = 0.0
+
+# ---------------------------------------------------------------------------
+# Vision / Multimodal LLM (for image-text tasks, used by MultimodalAgent)
+# ---------------------------------------------------------------------------
+[llm.vision]
+model = "Qwen/Qwen3-VL-8B-Instruct"            # Vision model from experiments
+base_url = "https://api.siliconflow.cn/v1"      # Or your provider's endpoint
+api_key = "YOUR_VISION_API_KEY"
+max_tokens = 8192
+temperature = 0.0
+
+# ---------------------------------------------------------------------------
+# DSER (Deep Structured Experience Reasoning) solver profile
+# This is the reasoning engine for benchmark evaluation.
+# In experiments, the paper used Qwen3-VL-8B-Instruct as the solver.
+# ---------------------------------------------------------------------------
+[llm.dser]
+api_type = "openai"
+model = "qwen3-vl-8b-instruct"                  # Solver model from experiments
+base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+api_key = "YOUR_DASHSCOPE_API_KEY"
+max_tokens = 1024
+temperature = 0.6
+
+# ---------------------------------------------------------------------------
+# LLM-as-Judge for evaluation (FinTMMBench correctness judgment)
+# Paper used gpt-4o-mini per the original FinTMMBench eval protocol (arXiv 2503.05185)
+# ---------------------------------------------------------------------------
+[llm.judge]
+api_type = "openai"
+model = "gpt-4o-mini"                           # Judge model from paper
+base_url = "https://api.openai.com/v1"
+api_key = "YOUR_OPENAI_API_KEY"
+max_tokens = 16
+temperature = 0.0
+
+# ---------------------------------------------------------------------------
+# Memory quality evaluation judge
+# Used to cross-verify the quality of collected and retrieved experience entries.
+# ---------------------------------------------------------------------------
+[llm.memory_judge]
+api_type = "openai"
+base_url = "https://api.deepseek.com"
+api_key = "YOUR_DEEPSEEK_API_KEY"
+model = "deepseek-v4-pro"           # Or another capable model for quality assessment
+max_tokens = 2048
+temperature = 0.3
+
+# ---------------------------------------------------------------------------
+# OCR (Optical Character Recognition for chart/table extraction)
+# Used by the OcrExtract tool to re-read charts when vision-read values are unreliable.
+# ---------------------------------------------------------------------------
+[ocr]
+model = "qwen3-vl-8b-instruct"                  # OCR model from experiments
+base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+api_key = "YOUR_OCR_API_KEY"                    # Or reuse DASHSCOPE key above
+
+# ---------------------------------------------------------------------------
+# Semantic Embedding (for FM experience retrieval)
+# Required for embed_text — no OCR/LLM fallback.
+# ---------------------------------------------------------------------------
+# Option 1: DashScope text-embedding-v3 (aliyun, recommended)
+[embedding]
+provider = "dashscope"
+model = "text-embedding-v3"
+base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+api_key = "YOUR_DASHSCOPE_API_KEY"
+
+# Option 2: NVIDIA NV-Embed-v2
+# [embedding]
+# provider = "nv_embed_v2"
+# model = "nvidia/NV-Embed-v2"
+# base_url = "https://integrate.api.nvidia.com/v1"
+# api_key = "YOUR_NVIDIA_API_KEY"
+
+# ---------------------------------------------------------------------------
+# Sandbox (Docker-based code execution)
+# ---------------------------------------------------------------------------
+[sandbox]
+use_sandbox = false
+image = "python:3.12-slim"
+work_dir = "/workspace"
+memory_limit = "1g"
+cpu_limit = 2.0
+timeout = 300
+network_enabled = true
+
+# ---------------------------------------------------------------------------
+# Daytona sandbox (placeholder — required by config loader; set unused if not using)
+# ---------------------------------------------------------------------------
+[daytona]
+daytona_api_key = "unused"
+
+# ---------------------------------------------------------------------------
+# MCP (Model Context Protocol) server reference
+# ---------------------------------------------------------------------------
+[mcp]
+server_reference = "app.mcp.server"
+
+# ---------------------------------------------------------------------------
+# Runflow: agent orchestration configuration
+# ---------------------------------------------------------------------------
+[runflow]
+use_planning_agent = true           # Enable PlanningAgent as planner/coordinator
+use_multimodal_agent = false        # Enable MultimodalAgent for image-text tasks
+
+# ---------------------------------------------------------------------------
+# Browser (optional — for web-browsing tasks)
+# ---------------------------------------------------------------------------
+# [browser]
+# headless = false
+# disable_security = true
+# extra_chromium_args = []
+# chrome_instance_path = ""
+# wss_url = ""
+# cdp_url = ""
+
+# [browser.proxy]
+# server = "http://proxy-server:port"
+# username = "proxy-username"
+# password = "proxy-password"
+
+# ---------------------------------------------------------------------------
+# Search (optional — for web-search tasks)
+# ---------------------------------------------------------------------------
+# [search]
+# engine = "Google"
+# fallback_engines = ["DuckDuckGo", "Baidu", "Bing"]
+# retry_delay = 60
+# max_retries = 3
+# lang = "en"
+# country = "us"

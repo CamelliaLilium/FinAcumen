@@ -1,0 +1,112 @@
+# ============================================================
+# FinAcumen .gitignore — Academic Paper Code Release
+# ============================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+*.egg
+dist/
+build/
+*.so
+.Python
+*.manifest
+*.spec
+
+# --- Virtual environments ---
+venv/
+.venv/
+env/
+.env
+*.env
+
+# --- API Keys & Secrets ---
+*.env
+.env.*
+*secret*
+*api_key*
+*apikey*
+
+# --- IDE & Editor ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.claude/
+.claire/
+.cursor/
+.sisyphus/
+.opencode/
+.githooks/
+
+# --- OS Files ---
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Model Weights & Large Files ---
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.h5
+*.hdf5
+*.pb
+*.pkl
+*.joblib
+
+# --- Logs ---
+*.log
+logs/
+*.log.*
+
+# --- Pytest & Coverage ---
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.cover
+
+# --- Linting & Type Checking ---
+.ruff_cache/
+.mypy_cache/
+.dmypy.json
+.pytype/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.ipynb
+
+# --- Data & Memory Banks (reproducible via scripts) ---
+data/full/
+memory/
+memory_bank/
+*.npy
+!data/sample/*.npy
+*.jsonl
+!data/sample/*.jsonl
+*.json
+!data/sample/*.json
+
+# --- Experiment Artifacts ---
+workspace/
+results/
+outputs/
+runs/
+
+# --- Misc ---
+*.zip
+*.tar.gz
+*.tgz
+nul
+debug-*.log
+temp_*.json
+_smart_old.txt

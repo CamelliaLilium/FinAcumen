@@ -1,0 +1,32 @@
+# FinAcumen — Financial Multimodal Reasoning via Self-Evolving Experience Memory
+# Python >=3.10 (recommended >=3.11 for built-in tomllib)
+#
+# Install:  pip install -r requirements.txt
+#
+# For AWS Bedrock support, install boto3 separately:
+#   pip install boto3>=1.28
+
+# ── Core ─────────────────────────────────────────────────────────────────────
+pydantic>=2.10               # ~=2.10.6  — data models & validation
+python-dotenv>=1.0            # ~=1.0.0   — .env loading (benchmark entrypoint)
+tomli>=2.0                    # ~=2.0.0   — TOML config for Python <3.11
+
+# ── LLM & Embeddings ─────────────────────────────────────────────────────────
+openai>=1.66                  # ~=1.66.3  — OpenAI / compat API client
+tenacity>=9.0                 # ~=9.0.0   — retry logic for LLM calls
+tiktoken>=0.9                 # ~=0.9.0   — token counting / truncation
+dashscope>=1.20               # ~=1.20.0  — Alibaba DashScope embeddings
+
+# ── Data & ML ────────────────────────────────────────────────────────────────
+numpy>=1.24                   # ~=1.24    — vector ops, embeddings, similarity
+scikit-learn>=1.3             # ~=1.3.0   — ML utilities
+
+# ── Utilities ────────────────────────────────────────────────────────────────
+loguru>=0.7                   # ~=0.7.3   — structured logging
+pyyaml>=6.0                   # ~=6.0.2   — YAML parsing (skill frontmatter)
+httpx>=0.27                   # ~=0.27.0  — async HTTP (transitive for openai)
+huggingface-hub>=0.29         # ~=0.29.2  — HF model hub access
+
+# ── Optional: AWS Bedrock ────────────────────────────────────────────────────
+# Uncomment if using Bedrock as LLM backend (see finacumen/ft/bedrock.py).
+# boto3>=1.28

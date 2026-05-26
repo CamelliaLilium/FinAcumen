@@ -7,7 +7,7 @@
 **FinAcumen** is a multi-agent framework for financial multimodal reasoning that continuously improves through self-evolving experience memory. It combines a tool-augmented agent runtime with an experience bank that captures, verifies, and reuses distilled lessons from past problems—growing more capable with each solved instance.
 
 <p align="center">
-  <img src="assets/figures/finacumen_overview.pdf" alt="FinAcumen Architecture" width="90%">
+  <img src="assets/figures/finacumen_overview.png" alt="FinAcumen Architecture" width="90%">
 </p>
 
 ---
@@ -163,10 +163,6 @@ python scripts/run_ablation.py
 
 ## Memory Lifecycle
 
-<p align="center">
-  <img src="assets/figures/memory_lifecycle.pdf" alt="Memory Lifecycle" width="85%">
-</p>
-
 The memory pipeline operates through six stages:
 
 1. **Retrieve** — Given a new problem, semantically search the memory bank for top-*k* relevant past experiences.
@@ -188,17 +184,9 @@ Five strategies govern how retrieved experiences are formatted and ranked:
 | D        | Confidence-filtered (high-quality only)  |
 | E        | Hybrid (combined signals)                |
 
-<p align="center">
-  <img src="assets/figures/strategy_comparison.pdf" alt="Strategy Comparison" width="80%">
-</p>
-
 ---
 
 ## Main Results
-
-<p align="center">
-  <img src="assets/figures/sota_grid.pdf" alt="SOTA Comparison" width="90%">
-</p>
 
 | Method          | FinMME | FinMMR-E | FinMMR-M | FinMMR-H | FinTMM | BizBench | **Avg** |
 |-----------------|--------|----------|----------|----------|--------|----------|---------|
@@ -207,24 +195,6 @@ Five strategies govern how retrieved experiences are formatted and ranked:
 | **FinAcumen**   | **76.5** | **82.3** | **71.8** | **58.9** | **79.4** | **73.1** | **73.7** |
 
 > **Note:** The values above are representative of the performance achieved by FinAcumen. Exact numbers will be updated upon acceptance.
-
-### Self-Evolution Analysis
-
-<p align="center">
-  <img src="assets/figures/self_evolution.pdf" alt="Self-Evolution Performance" width="80%">
-</p>
-
-FinAcumen's memory bank grows with each solved problem, yielding cumulative accuracy gains as more past experiences become available for retrieval. The self-evolution curve shows monotonic improvement across all datasets.
-
-### Retrieval Analysis
-
-<p align="center">
-  <img src="assets/figures/retrieval_hitrate.pdf" alt="Retrieval Hit Rate" width="80%">
-  &nbsp;&nbsp;
-  <img src="assets/figures/kmax_sensitivity.pdf" alt="K_max Sensitivity" width="80%">
-</p>
-
-Left: Retrieval hit rate across memory bank sizes for each strategy. Right: Sensitivity to the maximum number of retrieved entries (*k*<sub>max</sub>), showing stable performance for *k*<sub>max</sub> ∈ [3, 7].
 
 ---
 
